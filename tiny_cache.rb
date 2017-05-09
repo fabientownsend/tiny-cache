@@ -17,7 +17,7 @@ class TinyCache
   end
 
   def contents
-    cache_content + available_spot_left
+    cache_content + cache_available_spots
   end
 
   private
@@ -31,7 +31,7 @@ class TinyCache
   end
 
   def least_hit_element_tag
-    tag, _ = least_hit_element
+    tag, = least_hit_element
     tag
   end
 
@@ -40,10 +40,10 @@ class TinyCache
   end
 
   def cache_content
-    @cache.map { |k, v| [v[:hit], k, v[:data]] }.sort.reverse
+    @cache.map { |tag, v| [v[:hit], tag, v[:data]] }.sort.reverse
   end
 
-  def available_spot_left
-    (@cache_size_limit - @cache.size).times.map { ['-', '-', '-'] }
+  def cache_available_spots
+    Array.new(@cache_size_limit - @cache.size) { ['-', '-', '-'] }
   end
 end
