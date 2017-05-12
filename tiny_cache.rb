@@ -20,6 +20,10 @@ class TinyCache
     cache_content + cache_available_spots
   end
 
+  def pers
+    @cache.size * 100 / @cache_size_limit
+  end
+
   private
 
   def hit?(tag)
