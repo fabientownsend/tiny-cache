@@ -7,35 +7,30 @@ class CacheDisplay
     @result = ""
   end
 
-  def addSeparator
-    @result << pipe
-    @result << ("-" * (@width - 2))
-    @result << pipe << "\n"
+  def add_separator_top
+    @result << "┌" << line << "┐\n"
   end
 
-  def addContent(arr)
-    margin = 2
-    size_little_window = (@width - margin) / arr.size
-
-    @result += pipe
-    arr.each_with_index do |s, index|
-      @result += s.to_s.center(size_little_window - 1, " ")
-
-      if index == arr.size - 1
-        @result += " " * (@width - size_little_window * arr.size - 1)
-      else
-        @result += pipe
-      end
-    end
-    @result << pipe << "\n"
+  def add_separator_down
+    @result << "└" << line << "┘\n"
   end
 
-  def addContentV2(arr)
+  def add_separator
+    @result << pipe << line << pipe << "\n"
+  end
+
+  def persentage(pers, color = :default)
+    width = (pers * @width / 100)
+    percentage = " #{pers} % ".center(width, "█")
+    @result << percentage.colorize(color) << "\n" if pers != 0
+  end
+
+  def add_content(arr, font_color = :default)
     size = (@width - 2 - (arr.size - 1)) / arr.size
     @result << pipe
 
-    arr.each_with_index do |c, index|
-      @result << c.center(size, " ")
+    arr.each_with_index do |word, index|
+      @result << (word.to_s.center(size, " ")).white
 
       if (2 + arr.size - 1 + size * arr.size != @width) && index == arr.size - 1
         @result << " " * (@width - (2 + arr.size - 1 + size * arr.size))
@@ -55,6 +50,14 @@ class CacheDisplay
   private
 
   def pipe
-    "|"
+    "│".blue
+  end
+
+  def dash
+    "─".blue
+  end
+
+  def line
+    (dash * (@width - 2))
   end
 end
