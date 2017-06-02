@@ -1,4 +1,5 @@
 # I want to learn how a cache work!
+<img src="https://github.com/fabientownsend/tiny-cache/blob/master/demo.gif" width="100%">
 
 When cache are used everywhere in the software industry, I had no idea how it
 work. This is why I wrote this tiny cache.
